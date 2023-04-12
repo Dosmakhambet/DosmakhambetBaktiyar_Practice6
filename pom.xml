@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.dosmakhambetbaktiyar</groupId>
+    <artifactId>DosmakhambetBaktiyar_Practice6</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <name>DosmakhambetBaktiyar_Practice6</name>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <hirnate.version>5.6.1.Final</hirnate.version>
+        <postgresql.version>42.3.3</postgresql.version>
+        <flywaydb.version>9.16.3</flywaydb.version>
+        <junit.version>4.13.1</junit.version>
+        <mockito.version>5.2.0</mockito.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>${hirnate.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>${postgresql.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.flywaydb</groupId>
+                <artifactId>flyway-maven-plugin</artifactId>
+                <version>${flywaydb.version}</version>
+                <configuration>
+                    <url>jdbc:postgresql://localhost:5432/practice_6</url>
+                    <user>postgres</user>
+                    <password>aipluskzdev2121</password>
+                    <schemas>
+                        <schema>public</schema>
+                    </schemas>
+                    <locations>filesystem:src/main/resources/db/migration</locations>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>
