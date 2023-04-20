@@ -23,6 +23,13 @@ public class Developer implements Serializable {
 
     public Developer(){}
 
+    public Developer(String firstName, String lastName, Specialty specialty) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.specialty = specialty;
+        this.status = Status.ACTIVE;
+    }
+
     public Developer(Long id, String firstName, String lastName) {
         this.id = id;
         this.firstName = firstName;

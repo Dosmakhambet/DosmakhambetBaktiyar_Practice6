@@ -11,16 +11,21 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.target>1.8</maven.compiler.target>
-        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
+        <maven.compiler.source>11</maven.compiler.source>
         <hirnate.version>5.6.1.Final</hirnate.version>
         <postgresql.version>42.3.3</postgresql.version>
         <flywaydb.version>9.16.3</flywaydb.version>
         <junit.version>4.13.1</junit.version>
-        <mockito.version>5.2.0</mockito.version>
+        <mockito.version>5.3.0</mockito.version>
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>net.bytebuddy</groupId>
+            <artifactId>byte-buddy</artifactId>
+            <version>1.14.4</version>
+        </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
@@ -40,6 +45,7 @@
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
+            <version>${mockito.version}</version>
             <scope>test</scope>
         </dependency>
 
@@ -54,7 +60,7 @@
                 <configuration>
                     <url>jdbc:postgresql://localhost:5432/practice_6</url>
                     <user>postgres</user>
-                    <password>aipluskzdev2121</password>
+                    <password>postgres</password>
                     <schemas>
                         <schema>public</schema>
                     </schemas>

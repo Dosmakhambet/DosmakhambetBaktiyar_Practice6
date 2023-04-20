@@ -6,6 +6,7 @@ import com.dosmakhambetbaktiyar.service.impl.SpecialtyServiceImpl;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
@@ -20,25 +21,27 @@ import static org.mockito.Mockito.when;
 @RunWith(MockitoJUnitRunner.class)
 public class SpecialtyServiceTest {
 
-    private SpecialtyService service;
+    @InjectMocks
+    private SpecialtyServiceImpl service;
 
     @Mock
     private SpecialtyRepository repository;
 
-    private Specialty specialty1 = new Specialty(1L,"Developer");
-    private Specialty specialty2 = new Specialty(2L,"JavaDeveloper");
-    private Specialty specialty3 = new Specialty(5L,"SeniorDeveloper");
-
-
-    @Before
-    public void setUp(){
-        service = new SpecialtyServiceImpl(repository);
+    private Specialty getSpecialty1(){
+        return new Specialty(1L,"Developer");
     }
 
+    private Specialty getSpecialty2(){
+        return new Specialty(2L,"JavaDeveloper");
+    }
+
+    private Specialty getSpecialty3(){
+        return new Specialty(5L,"SeniorDeveloper");
+    }
     @Test
     public void create(){
 
-        when(service.create(any(Specialty.class))).thenReturn(specialty1);
+        when(repository.create(any(Specialty.class))).thenReturn(getSpecialty1());
 
         Specialty specialty = service.create(new Specialty("Tester"));
 
@@ -49,7 +52,7 @@ public class SpecialtyServiceTest {
 
     @Test
     public void get(){
-        when(service.get(anyLong())).thenReturn(specialty3);
+        when(repository.get(anyLong())).thenReturn(getSpecialty3());
 
         Specialty specialty = service.get(0L);
 
@@ -60,7 +63,7 @@ public class SpecialtyServiceTest {
 
     @Test
     public void getAll() {
-        when(service.getAll()).thenReturn(getSpecialties());
+        when(repository.getAll()).thenReturn(getSpecialties());
 
         List<Specialty> specialties = service.getAll();
 
@@ -71,9 +74,9 @@ public class SpecialtyServiceTest {
 
     @Test
     public void update(){
-        when(service.update(any(Specialty.class))).thenReturn(specialty2);
+        when(repository.update(any(Specialty.class))).thenReturn(getSpecialty2());
 
-        Specialty specialty = service.update(new Specialty("ManualTester"));
+        Specialty specialty = service.update(new Specialty(10L,"ManualTester"));
 
         assertEquals("JavaDeveloper",specialty.getName());
         assertEquals(Status.ACTIVE,specialty.getStatus());
@@ -82,7 +85,7 @@ public class SpecialtyServiceTest {
 
     @Test
     public void delete(){
-        when(service.delete(anyLong())).thenReturn(true);
+        when(repository.delete(anyLong())).thenReturn(true);
 
         boolean ok = service.delete(3L);
         assertTrue(ok);
@@ -91,9 +94,9 @@ public class SpecialtyServiceTest {
     private List<Specialty> getSpecialties(){
         List<Specialty> specialties = new ArrayList<>();
 
-        specialties.add(specialty1);
-        specialties.add(specialty2);
-        specialties.add(specialty3);
+        specialties.add(getSpecialty1());
+        specialties.add(getSpecialty2());
+        specialties.add(getSpecialty3());
 
         return specialties;
     }
