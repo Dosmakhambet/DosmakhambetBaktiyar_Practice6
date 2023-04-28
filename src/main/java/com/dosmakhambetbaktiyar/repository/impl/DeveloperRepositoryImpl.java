@@ -1,13 +1,17 @@
 package com.dosmakhambetbaktiyar.repository.impl;
 
 import com.dosmakhambetbaktiyar.model.Developer;
+import com.dosmakhambetbaktiyar.model.Skill;
 import com.dosmakhambetbaktiyar.model.Status;
 import com.dosmakhambetbaktiyar.repository.DeveloperRepository;
 import com.dosmakhambetbaktiyar.utils.HibernateUtils;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class DeveloperRepositoryImpl implements DeveloperRepository {
     @Override
@@ -40,9 +44,17 @@ public class DeveloperRepositoryImpl implements DeveloperRepository {
             Transaction transaction = session.beginTransaction();
 
             List developers = session.createQuery("from Developer where status = " + Status.ACTIVE.ordinal()).list();
+            List<Developer> developersList = new ArrayList<>();
+
+            for(int i = 0; i < developers.size(); i++){
+                Developer developer = (Developer) developers.get(i);
+                developer.setSkills(developer.getSkills().stream().map(skill -> new Skill(skill.getId(),skill.getName())).collect(Collectors.toSet()));
+                developersList.add(developer);
+            }
             transaction.commit();
 
-            return developers;
+
+            return developersList;
         }catch (Exception e){
             System.err.println("Developer getAll() error. " + e.getMessage());
         }

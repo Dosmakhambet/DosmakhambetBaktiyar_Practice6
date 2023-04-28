@@ -18,7 +18,7 @@ public class Developer implements Serializable {
     private Status status;
     @ManyToOne
     private Specialty specialty;
-    @ManyToMany(fetch = FetchType.EAGER,cascade = {CascadeType.ALL})
+    @ManyToMany(fetch = FetchType.LAZY)
     private Set<Skill> skills;
 
     public Developer(){}
